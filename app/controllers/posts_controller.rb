@@ -16,7 +16,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:id])
+    #Needed to pass in post_params instead of params[:id]
+    @post = Post.new(post_params)
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else
@@ -33,7 +34,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post
+    #There was no delete method for the post.
+    @post.delete
     redirect_to posts_url, notice: 'Post was successfully destroyed.'
   end
 

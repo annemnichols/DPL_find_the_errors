@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = Task.all
+    #Change task to tasks
+    @tasks = Task.all
   end
 
   def show
@@ -26,7 +27,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @tasks, notice: 'Task was successfully updated.'
+      #Need to redirect to @task, not @tasks
+      redirect_to @task, notice: 'Task was successfully updated.'
     else
       render :edit
     end
@@ -38,11 +40,14 @@ class TasksController < ApplicationController
   end
 
   private
-    def set_tasks
+
+  #Needed to be 'set_task' instead of 'set_tasks'
+    def set_task
       @task = Task.find(params[:id])
     end
 
     def task_params
-      params.require(:task).permit(:priority)
+      #Need to allow description
+      params.require(:task).permit(:priority, :description)
     end
 end
